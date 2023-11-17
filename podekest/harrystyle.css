@@ -1,0 +1,41 @@
+* {
+    margin: 0px;
+    padding: 1em;
+}
+
+body {
+    background-image: url(wallpp.jpg);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-color: #0b0914;
+
+}
+
+.site {
+    margin: 0 auto;
+    width: 1000px;
+    height: 500px;
+    background-color: #f4efd8;
+    border: inset 10px;
+    display: grid;
+    grid-template-areas: 
+    'auto auto';
+}
+
+.colum1{
+    width: 25%;
+
+}
+.colum2{
+    width: 75%;
+}
+
+.titulo {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.5em;
+}
+
+.titulo2 {
+    margin-left: 0;
+}
+

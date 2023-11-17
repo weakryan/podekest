@@ -1,0 +1,102 @@
+function estabeleceValores(pokemon){
+    foto.src = pokemon.img;
+    nome.textContent = pokemon.nome;
+    nomeTab.textContent = pokemon.nome;
+    numero.textContent = pokemon.numero;
+    tipo.textContent = pokemon.tipo;
+    altura.textContent = pokemon.altura;
+    geracao.textContent = pokemon.geracao;
+    vida.textContent = pokemon.hp;
+    defesa.textContent = pokemon.def;
+    ataque.textContent = pokemon.atk;
+    velocidade.textContent = pokemon.speed;
+    spatk.textContent = pokemon.spatk;
+    spdef.textContent = pokemon.spdef;
+    foto3D.src = pokemon.img_3d;
+    foto_shiny.src = pokemon.img_shiny;
+    peso.textContent = pokemon.peso;
+    evolucoes.textContent = pokemon.evolucoes
+
+}
+
+function fotosEvolucoes(){
+    let pokemons = evolucoes.textContent.split(",")
+    evolucoes.innerHTML = "";
+    nomesEvo.innerHTML = "";
+    
+    for (let index = 0; index < pokemons.length; index++) {
+        fetch(`https://pokemon.danielpimentel.com.br/v1/pokemon/nome/${pokemons[index]}`)
+        .then(resposta => resposta.json())
+        .then(dados => {
+        evolucoes.innerHTML += `<img src="${dados.pokemon.img}" alt="">`;
+        nomesEvo.textContent += `${dados.pokemon.nome}, `;
+    })
+        .catch(error => console.error(error));
+    }
+    
+}
+
+function imagensTipos(){
+    fetch(`https://pokemon.danielpimentel.com.br/v1/tipos`)
+    .then(resposta => resposta.json())
+    .then(dados => {
+        tipos = (dados.tipos);
+        tiposPokemon.innerHTML = "";
+        for (let i = 0; i < tipos.length; i++) {
+            if((tipo.textContent).includes(tipos[i].nome) == true){
+                tiposPokemon.innerHTML += `<img src="https://raw.githubusercontent.com/duiker101/pokemon-type-svg-icons/5781623f147f1bf850f426cfe1874ba56a9b75ee/icons//${tipos[i].nome}.svg" alt=""> `;
+            }
+            
+        }
+    })
+    .catch(error => console.error(error));
+}
+
+lista.addEventListener('change', () => {
+    nomePokemon = lista.value;
+    fetch(`https://pokemon.danielpimentel.com.br/v1/pokemon/nome/${nomePokemon}`)
+    .then(resposta => resposta.json())
+    .then(dados => {
+        estabeleceValores(dados.pokemon);
+        fotosEvolucoes();          
+        imagensTipos();
+    })
+    .catch(error => console.error(error));
+})
+});
+
+<select id="select">
+              ${(url+"pokemon/lista")}
+          </select>`
+
+
+
+
+function listPok(url){
+  for(let i = 0; i <=904; i++) {
+    fetch(url)
+    .then(resposta => resposta.json())
+    .then(mostraPok => lista.innerHTML += `<option value="">${mostraPok.pokemon[i].nome} </option>`)
+    .catch(erro => console.error(erro))
+  }
+}
+
+pk.addEventListener('click',mostrarPK);
+
+function mostrarPK(){
+    let namePk = select.value
+    fetch(url + `pokemon/nome/${namePk}`).then(res => res.json())
+    .then(infopk => div.innerHTML = `<div> <h1>${infopk.pokemon.nome}</h1>
+    <p> altura: ${infopk.pokemon.altura} </p>
+    <p> peso: ${infopk.pokemon.peso} </p>
+    <p> tipo: ${infopk.pokemon.tipo} </p>
+    <p> geração: ${infopk.pokemon.geracao}º
+    <p> pontos de vida: ${infopk.pokemon.hp} </p>
+    <p> ataque: ${infopk.pokemon.atk} </p>
+    <img src=${infopk.pokemon.img}> 
+    <p> defesa: ${infopk.pokemon.def} </p>
+    <p> velocidade: ${infopk.pokemon.speed}
+    <h2> evoluções: ${infopk.pokemon.evolucoes}
+    </div>`)
+    .catch(er => console.erro(er))
+}
